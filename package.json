@@ -3,6 +3,9 @@
   "displayName": "VSWebCompilerFlow",
   "description": "💠 Compile SCSS files easily to css and minified version.",
   "version": "0.0.1",
+  "publisher": "flowko",
+  "author": "Flowko [@flowko]",
+  "icon": "logo.png",
   "engines": {
     "vscode": "^1.63.0"
   },
