@@ -13,7 +13,7 @@
     "Formatters"
   ],
   "activationEvents": [
-    "*"
+    "onCommand:vswebcompilerflow.compile"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -54,6 +54,10 @@
         }
       }
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Flowko/vswebcompilerflow.git"
   },
   "keywords": [
     "css",
