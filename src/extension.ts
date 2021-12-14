@@ -1,26 +1,198 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+import { StatusBarUi } from "./statubarUi";
+
+const path = require("path");
+const scss = require("sass");
+
+const fs = require("iofs");
+const postcss = require("postcss");
+const autoprefixer = require("autoprefixer");
+const std = vscode.window.createOutputChannel("vswebcompilerflow") as any;
+
+let prefixer: any;
+let options: any = {
+  compileOnSave: true,
+  autoPrefixer: true,
+  indentType: 'space',
+  indentWidth: 2,
+  output: 'expanded | compressed' as any,
+  exclude: '' as any
+};
+
+const compiler = {
+  compile(doc: any) {
+    let origin = doc.fileName || "";
+    let target = origin.replace(/\.scss$/, "");
+    let task = [];
+
+    if (origin === target) {
+      return;
+    }
+
+    task = options.output.map((style: any) => {
+      let ext = ".css";
+
+      switch (style) {
+        case "compressed":
+          ext = ".min" + ext;
+          break;
+        default:
+          ext = ext;
+      }
+
+      return { style, output: target + ext };
+    });
+
+    if (task.length === 1) {
+      task[0].output = target + ".css";
+    }
+
+    task = task.map((item: any) => {
+      return compileScss(item.style, origin, item.output);
+    });
+
+    StatusBarUi.compiling();
+
+    Promise.all(task)
+      .then((list) => {
+        list.forEach((it) => {
+          fs.echo(it.css, it.output);
+        });
+        StatusBarUi.compilationSuccess();
+      })
+      .catch((err) => {
+        vscode.window.showInformationMessage(err);
+        StatusBarUi.compilationError();
+      });
+
+
+  },
+
+  filter(doc: any) {
+    if (!options.compileOnSave) {
+      return;
+    }
+
+    let origin = doc.fileName || "";
+
+    if (/\/var\.scss$/.test(origin)) {
+      return;
+    }
+
+    if (options.exclude) {
+      if (options.exclude.test(origin)) {
+        return;
+      }
+    }
+
+    this.compile(doc);
+  },
+};
+
 export function activate(context: vscode.ExtensionContext) {
-	
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "vswebcompilerflow" is now active!');
+  init();
+  vscode.workspace.onDidChangeConfiguration(init);
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('vswebcompilerflow.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from VSWebCompilerFlow!');
-	});
+  vscode.workspace.onDidSaveTextDocument((doc) => {
+    std.clear();
+    compiler.filter(doc);
+  });
 
-	context.subscriptions.push(disposable);
+  let cmd = vscode.commands.registerCommand('vswebcompilerflow.compile', _ => {
+    let editor = vscode.window.activeTextEditor;
+
+    if (editor) {
+      compiler.compile(editor.document);
+    }
+  });
+
+  context.subscriptions.push(cmd);
 }
 
-// this method is called when your extension is deactivated
-export function deactivate() {}
+function init() {
+  let conf = vscode.workspace.getConfiguration('vswebcompilerflow') as any;
+  let folders = vscode.workspace.workspaceFolders;
+  let wsDir = '';
+  let configFile = '';
+
+  StatusBarUi.init();
+
+  Object.assign(options, conf);
+  conf = null;
+
+  options.output = options.output.split('|').map((it: any) => it.trim());
+
+  if (folders && folders.length) {
+    wsDir = folders[0].uri.path;
+  }
+
+  if (wsDir) {
+    configFile = path.join(wsDir, '.scssrc');
+  } else {
+    let editor = vscode.window.activeTextEditor;
+    if (editor) {
+      wsDir = path.dirname(editor.document.fileName);
+      configFile = path.join(wsDir, '.scssrc');
+    }
+  }
+
+  options.workspace = wsDir;
+
+  if (fs.exists(configFile)) {
+    let tmp = JSON.parse(fs.cat(configFile).toString());
+
+    Object.assign(options, tmp);
+    tmp = null;
+
+    if (options.outdir) {
+      options.outdir = path.join(options.workspace, options.outdir);
+    }
+  }
+
+  if (options.exclude) {
+    options.exclude = new RegExp(options.exclude, 'i');
+  }
+
+  prefixer = postcss().use(
+    autoprefixer({
+      browsers: options.browsers
+    })
+  );
+}
+
+function render(style: any, file: any) {
+  try {
+    return (
+      scss.renderSync({
+        file,
+        outputStyle: style,
+        indentType: options.indentType,
+        indentWidth: options.indentWidth
+      }).css + ''
+    ).trim();
+  } catch (err) {
+    std.out(err);
+    std.show(true);
+    // console.error(err)
+  }
+}
+
+const compileScss = (style: any, entry: any, output: any) => {
+  if (options.outdir) {
+    let tmp = output.replace(options.workspace, '.');
+    output = path.join(options.outdir, tmp);
+  }
+
+  let css = render(style, entry);
+
+  if (options.autoPrefixer) {
+    return prefixer.process(css, { from: '', to: '' }).then((result: any) => {
+      return { css: result.css, output };
+    });
+  } else {
+    return Promise.resolve({ css, output });
+  }
+};
+
+export function deactivate() { }
