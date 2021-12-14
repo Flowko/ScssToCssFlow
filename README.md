@@ -4,7 +4,6 @@
 [![Version](https://vsmarketplacebadge.apphb.com/version-short/Flowko.vswebcompilerflow.svg)](https://marketplace.visualstudio.com/items?itemName=Flowko.vswebcompilerflow)
 [![Rating](https://vsmarketplacebadge.apphb.com/rating-short/Flowko.vswebcompilerflow.svg)](https://marketplace.visualstudio.com/items?itemName=Flowko.vswebcompilerflow)
 [![Installs](https://vsmarketplacebadge.apphb.com/installs/Flowko.vswebcompilerflow.svg)](https://marketplace.visualstudio.com/items?itemName=Flowko.vswebcompilerflow)
-[![Build Status](https://app.travis-ci.com/Flowko/vswebcompilerflow.svg?branch=master)](https://app.travis-ci.com/Flowko/vswebcompilerflow)
 
 ## Configuration
 > Some configuration can be set, which it works better for you。
