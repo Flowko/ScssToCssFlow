@@ -2,7 +2,7 @@
   "name": "vswebcompilerflow",
   "displayName": "VSWebCompilerFlow",
   "description": "💠 Compile SCSS files easily to css and minified version.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publisher": "flowko",
   "author": "Flowko [@flowko]",
   "icon": "logo.png",
