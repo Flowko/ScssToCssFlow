@@ -1,6 +1,11 @@
 # VS Web Compiler Flow
 > 💠 Compile SCSS files easily to css and minified version.
 
+[![Version](https://vsmarketplacebadge.apphb.com/version-short/Flowko.vswebcompilerflow.svg)](https://marketplace.visualstudio.com/items?itemName=Flowko.vswebcompilerflow)
+[![Rating](https://vsmarketplacebadge.apphb.com/rating-short/Flowko.vswebcompilerflow.svg)](https://marketplace.visualstudio.com/items?itemName=Flowko.vswebcompilerflow)
+[![Installs](https://vsmarketplacebadge.apphb.com/installs/Flowko.vswebcompilerflow.svg)](https://marketplace.visualstudio.com/items?itemName=Flowko.vswebcompilerflow)
+[![Build Status](https://travis-ci.org/Flowko/vswebcompilerflow.svg?branch=master)](https://travis-ci.org/Flowko/vswebcompilerflow)
+
 ## Configuration
 > Some configuration can be set, which it works better for you。
 >> - `compileOnSave`: Auto compile on Save, default `true`
@@ -10,4 +15,4 @@
 ![Statusbar control](./images/usage.png)
 
 ## Installation
-> Search `vswebcompilerflow` and install in the marketplace.
+> Search `vswebcompilerflow` and install it from the marketplace.
