@@ -13,7 +13,7 @@
     "Formatters"
   ],
   "activationEvents": [
-    "onCommand:vswebcompilerflow.compile"
+    "*"
   ],
   "main": "./dist/extension.js",
   "contributes": {
