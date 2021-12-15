@@ -40,7 +40,7 @@ const _processCssBody = (bodyContent: any) => {
       const pullColorVar = attribute.match(/[^0-9A-Za-z]+(#[0-9A-Fa-f]{3,6})/);
       let modAttribute = attribute;
 
-      if (pullColorVar != null) {
+      if (pullColorVar !== null) {
         const colorVar = pullColorVar[1];
         const colorName = namer(colorVar).html[0].name + colorVar.replace('#', '_');
         _colorObj[`$${colorName}`] = `${colorVar}`;
