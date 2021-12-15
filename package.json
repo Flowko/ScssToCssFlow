@@ -21,6 +21,10 @@
       {
         "command": "vswebcompilerflow.compile",
         "title": "Compile The SCSS file..."
+      },
+      {
+        "command": "vswebcompilerflow.css-to-scss",
+        "title": "Compile The CSS file to SCSS"
       }
     ],
     "menus": {
@@ -29,6 +33,11 @@
           "when": "!inOutput",
           "command": "vswebcompilerflow.compile",
           "title": "Compile The SCSS file..."
+        },
+        {
+          "when": "!inOutput",
+          "command": "vswebcompilerflow.css-to-scss",
+          "title": "Compile The CSS file to SCSS"
         }
       ]
     },
@@ -36,6 +45,10 @@
       {
         "command": "vswebcompilerflow.compile",
         "key": "cmd+shift+c"
+      },
+      {
+        "command": "vswebcompilerflow.css-to-scss",
+        "key": "cmd+shift+s"
       }
     ],
     "configuration": {
@@ -46,6 +59,11 @@
           "type": "boolean",
           "default": true,
           "description": "Auto compile on Save"
+        },
+        "vswebcompilerflow.showButtons": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show Buttons in the status bar"
         },
         "vswebcompilerflow.output": {
           "type": "string",
@@ -85,10 +103,13 @@
     "@typescript-eslint/parser": "^5.1.0",
     "@vscode/test-electron": "^1.6.2",
     "autoprefixer": "^10.4.0",
+    "color-namer": "^1.4.0",
     "eslint": "^8.1.0",
     "glob": "^7.1.7",
     "iofs": "^1.5.2",
+    "lodash": "^4.17.21",
     "mocha": "^9.1.3",
+    "perfectionist": "^2.4.0",
     "postcss": "^8.4.5",
     "sass": "^1.45.0",
     "ts-loader": "^9.2.5",

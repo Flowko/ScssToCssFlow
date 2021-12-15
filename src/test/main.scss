@@ -1,8 +1,10 @@
+$white_fff: #ffffff;
+
 ul {
   display: flex;
 
   li {
+    color: $white_fff;
     flex: 2;
-    color: #fff;
   }
 }

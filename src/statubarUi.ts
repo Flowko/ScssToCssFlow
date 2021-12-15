@@ -18,12 +18,8 @@ export class StatusBarUi {
     StatusBarUi.working("Starting...");
     setTimeout(function () {
       StatusBarUi.compileScss();
+      // StatusBarUi.convertCssToScss();
     }, 1000);
-  }
-
-  static compiling() {
-    StatusBarUi.statusBarItem.text = `$(pulse) Compiling...`;
-    StatusBarUi.statusBarItem.color = '#56ca00';
   }
 
   static compileScss() {
@@ -31,6 +27,13 @@ export class StatusBarUi {
     StatusBarUi.statusBarItem.color = '#27c1ad';
     StatusBarUi.statusBarItem.command = 'vswebcompilerflow.compile';
     StatusBarUi.statusBarItem.tooltip = 'live compilation of SCSS to CSS';
+  }
+
+  static convertCssToScss() {
+    StatusBarUi.statusBarItem.text = `$(eye) CSS to SCSS`;
+    StatusBarUi.statusBarItem.color = '#C127C1';
+    StatusBarUi.statusBarItem.command = 'vswebcompilerflow.css-to-scss';
+    StatusBarUi.statusBarItem.tooltip = 'Convert CSS to SCSS';
   }
 
   static working(workingMsg: string = "Working on it...") {
