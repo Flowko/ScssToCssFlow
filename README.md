@@ -1,9 +1,9 @@
 # VS Web Compiler Flow
 > 💠 Compile SCSS files easily to css and minified version.
 
-[![Version](https://vsmarketplacebadge.apphb.com/version-short/Flowko.vswebcompilerflow.svg)](https://marketplace.visualstudio.com/items?itemName=Flowko.vswebcompilerflow)
-[![Rating](https://vsmarketplacebadge.apphb.com/rating-short/Flowko.vswebcompilerflow.svg)](https://marketplace.visualstudio.com/items?itemName=Flowko.vswebcompilerflow)
-[![Installs](https://vsmarketplacebadge.apphb.com/installs/Flowko.vswebcompilerflow.svg)](https://marketplace.visualstudio.com/items?itemName=Flowko.vswebcompilerflow)
+[![Version](https://vsmarketplacebadge.apphb.com/version-short/Flowko.scss-to-css-flow.svg)](https://marketplace.visualstudio.com/items?itemName=Flowko.scss-to-css-flow)
+[![Rating](https://vsmarketplacebadge.apphb.com/rating-short/Flowko.scss-to-css-flow.svg)](https://marketplace.visualstudio.com/items?itemName=Flowko.scss-to-css-flow)
+[![Installs](https://vsmarketplacebadge.apphb.com/installs/Flowko.scss-to-css-flow.svg)](https://marketplace.visualstudio.com/items?itemName=Flowko.scss-to-css-flow)
 
 ## Configuration
 > Some configuration can be set, which it works better for you。
@@ -16,4 +16,4 @@
 2. Generate SCSS file from CSS, simply search for `Css to Scss` in the commands and execute it.
 
 ## Installation
-> Search `vswebcompilerflow` and install it from the marketplace.
+> Search `scss-to-css-flow` and install it from the marketplace.
