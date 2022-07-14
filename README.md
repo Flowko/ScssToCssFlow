@@ -8,8 +8,10 @@
 ## Configuration
 > Some configuration can be set, which it works better for you。
 >> - `compileOnSave`: Auto compile on Save, default `true`
->> - `output`: Output style. default `expanded | compressed`。 
->> - `showButtons`: Show button in the status bar. default `true`。 
+>> - `output`: Output style. default `expanded | compressed`
+>> - `showButtons`: Show button in the status bar. default `true`
+>> - `autoPrefixer`: Enables AutoFixer. default `false`
+>> - `browsers`: Add a list of browsers to support. default `[]`
 ## Usage/Shortcuts
 1. Click to `Compile SCSS` from Statusbar to compile the SCSS file, or just save the file instead. <br>
 ![Statusbar control](./images/usage.png)
