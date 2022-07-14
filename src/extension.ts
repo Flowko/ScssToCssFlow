@@ -10,7 +10,7 @@ const fs = require("fs");
 const postcss = require("postcss");
 const autoprefixer = require("autoprefixer");
 const { convertCssToScss } = require("./lib/sassParser");
-const std = vscode.window.createOutputChannel("vswebcompilerflow") as any;
+const std = vscode.window.createOutputChannel("scss-to-css-flow") as any;
 
 let prefixer: any;
 let options: any = {
@@ -21,7 +21,7 @@ let options: any = {
   output: "expanded | compressed" as any,
   exclude: "" as any,
   showButtons: true,
-  browsers: null,
+  browsers: [],
 };
 
 const compiler = {
@@ -112,7 +112,7 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   let compileCmd = vscode.commands.registerCommand(
-    "vswebcompilerflow.compile",
+    "scss-to-css-flow.compile",
     (_) => {
       let editor = vscode.window.activeTextEditor;
 
@@ -122,7 +122,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
   let cssToScssCmd = vscode.commands.registerCommand(
-    "vswebcompilerflow.css-to-scss",
+    "scss-to-css-flow.css-to-scss",
     (_) => {
       let editor = vscode.window.activeTextEditor;
 
@@ -136,7 +136,7 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 function init() {
-  let conf = vscode.workspace.getConfiguration("vswebcompilerflow") as any;
+  let conf = vscode.workspace.getConfiguration("scss-to-css-flow") as any;
   let folders = vscode.workspace.workspaceFolders;
   let wsDir = "";
   let configFile = "";
