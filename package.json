@@ -19,11 +19,11 @@
   "contributes": {
     "commands": [
       {
-        "command": "vswebcompilerflow.compile",
+        "command": "scss-to-css-flow.compile",
         "title": "Compile The SCSS file..."
       },
       {
-        "command": "vswebcompilerflow.css-to-scss",
+        "command": "scss-to-css-flow.css-to-scss",
         "title": "Compile The CSS file to SCSS"
       }
     ],
@@ -31,23 +31,23 @@
       "editor/context": [
         {
           "when": "!inOutput",
-          "command": "vswebcompilerflow.compile",
+          "command": "scss-to-css-flow.compile",
           "title": "Compile The SCSS file..."
         },
         {
           "when": "!inOutput",
-          "command": "vswebcompilerflow.css-to-scss",
+          "command": "scss-to-css-flow.css-to-scss",
           "title": "Compile The CSS file to SCSS"
         }
       ]
     },
     "keybindings": [
       {
-        "command": "vswebcompilerflow.compile",
+        "command": "scss-to-css-flow.compile",
         "key": "cmd+shift+c"
       },
       {
-        "command": "vswebcompilerflow.css-to-scss",
+        "command": "scss-to-css-flow.css-to-scss",
         "key": "cmd+shift+s"
       }
     ],
@@ -55,27 +55,27 @@
       "type": "object",
       "title": "Web Compiler Flow Configuration",
       "properties": {
-        "vswebcompilerflow.compileOnSave": {
+        "scss-to-css-flow.compileOnSave": {
           "type": "boolean",
           "default": true,
           "description": "Auto compile on Save"
         },
-        "vswebcompilerflow.showButtons": {
+        "scss-to-css-flow.showButtons": {
           "type": "boolean",
           "default": true,
           "description": "Show Buttons in the status bar"
         },
-        "vswebcompilerflow.output": {
+        "scss-to-css-flow.output": {
           "type": "string",
           "default": "expanded | compressed",
           "description": "Compressed: Generates only .css file\nExpanded: Generates only .min.css\nExpanded | Compressed: Generates both."
         },
-        "vswebcompilerflow.autoPrefixer": {
+        "scss-to-css-flow.autoPrefixer": {
           "type": "boolean",
           "default": false,
           "description": "Auto prefixer"
         },
-        "vswebcompilerflow.browsers": {
+        "scss-to-css-flow.browsers": {
           "type": "array",
           "default": ["ie > 9", "iOS > 8", "Android >= 4.4", "ff > 38", "Chrome > 38"],
           "description": "Browsers to support"
@@ -85,7 +85,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Flowko/vswebcompilerflow.git"
+    "url": "https://github.com/Flowko/ScssToCssFlow.git"
   },
   "keywords": [
     "css",
