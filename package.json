@@ -1,6 +1,6 @@
 {
-  "name": "vswebcompilerflow",
-  "displayName": "VSWebCompilerFlow",
+  "name": "scss-to-css-flow",
+  "displayName": "ScssToCssFlow",
   "description": "💠 Compile SCSS files easily to css and minified version.",
   "version": "0.5.0",
   "publisher": "flowko",
