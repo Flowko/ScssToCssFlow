@@ -2,7 +2,7 @@
   "name": "scss-to-css-flow",
   "displayName": "ScssToCssFlow",
   "description": "💠 Compile SCSS files easily to css and minified version.",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "publisher": "flowko",
   "author": "Flowko [@flowko]",
   "icon": "logo.png",
