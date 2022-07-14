@@ -2,7 +2,7 @@
   "name": "vswebcompilerflow",
   "displayName": "VSWebCompilerFlow",
   "description": "💠 Compile SCSS files easily to css and minified version.",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "publisher": "flowko",
   "author": "Flowko [@flowko]",
   "icon": "logo.png",
@@ -69,6 +69,16 @@
           "type": "string",
           "default": "expanded | compressed",
           "description": "Compressed: Generates only .css file\nExpanded: Generates only .min.css\nExpanded | Compressed: Generates both."
+        },
+        "vswebcompilerflow.autoPrefixer": {
+          "type": "boolean",
+          "default": false,
+          "description": "Auto prefixer"
+        },
+        "vswebcompilerflow.browsers": {
+          "type": "array",
+          "default": ["ie > 9", "iOS > 8", "Android >= 4.4", "ff > 38", "Chrome > 38"],
+          "description": "Browsers to support"
         }
       }
     }

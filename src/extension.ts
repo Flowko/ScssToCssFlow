@@ -9,18 +9,19 @@ const iofs = require("iofs");
 const fs = require("fs");
 const postcss = require("postcss");
 const autoprefixer = require("autoprefixer");
-const {convertCssToScss} = require("./lib/sassParser");
+const { convertCssToScss } = require("./lib/sassParser");
 const std = vscode.window.createOutputChannel("vswebcompilerflow") as any;
 
 let prefixer: any;
 let options: any = {
   compileOnSave: true,
-  autoPrefixer: true,
-  indentType: 'space',
+  autoPrefixer: false,
+  indentType: "space",
   indentWidth: 2,
-  output: 'expanded | compressed' as any,
-  exclude: '' as any,
-  showButtons: false
+  output: "expanded | compressed" as any,
+  exclude: "" as any,
+  showButtons: true,
+  browsers: null,
 };
 
 const compiler = {
@@ -64,8 +65,6 @@ const compiler = {
       .catch((err) => {
         StatusBarUi.compilationError();
       });
-
-
   },
   cssToScss(doc: any) {
     let origin = doc.fileName || "";
@@ -77,7 +76,7 @@ const compiler = {
 
     let ext = ".scss";
     let filename = target + ext;
-    const initialContents = fs.readFileSync(origin, 'UTF8');
+    const initialContents = fs.readFileSync(origin, "UTF8");
     const processedContents = convertCssToScss(initialContents);
 
     fs.writeFileSync(filename, processedContents);
@@ -112,46 +111,52 @@ export function activate(context: vscode.ExtensionContext) {
     compiler.filter(doc);
   });
 
-  let compileCmd = vscode.commands.registerCommand('vswebcompilerflow.compile', _ => {
-    let editor = vscode.window.activeTextEditor;
+  let compileCmd = vscode.commands.registerCommand(
+    "vswebcompilerflow.compile",
+    (_) => {
+      let editor = vscode.window.activeTextEditor;
 
-    if (editor) {
-      compiler.compile(editor.document);
+      if (editor) {
+        compiler.compile(editor.document);
+      }
     }
-  });
-  let cssToScssCmd = vscode.commands.registerCommand('vswebcompilerflow.css-to-scss', _ => {
-    let editor = vscode.window.activeTextEditor;
+  );
+  let cssToScssCmd = vscode.commands.registerCommand(
+    "vswebcompilerflow.css-to-scss",
+    (_) => {
+      let editor = vscode.window.activeTextEditor;
 
-    if (editor) {
-      compiler.cssToScss(editor.document);
+      if (editor) {
+        compiler.cssToScss(editor.document);
+      }
     }
-  });
+  );
 
-  context.subscriptions.push(compileCmd,cssToScssCmd);
+  context.subscriptions.push(compileCmd, cssToScssCmd);
 }
 
 function init() {
-  let conf = vscode.workspace.getConfiguration('vswebcompilerflow') as any;
+  let conf = vscode.workspace.getConfiguration("vswebcompilerflow") as any;
   let folders = vscode.workspace.workspaceFolders;
-  let wsDir = '';
-  let configFile = '';
+  let wsDir = "";
+  let configFile = "";
 
   Object.assign(options, conf);
   conf = null;
 
-  options.output = options.output.split('|').map((it: any) => it.trim());
+  options.output = options.output.split("|").map((it: any) => it.trim());
 
   if (folders && folders.length) {
     wsDir = folders[0].uri.path;
   }
 
   if (wsDir) {
-    configFile = path.join(wsDir, '.scssrc');
+    configFile = path.join(wsDir, ".scssrc");
   } else {
     let editor = vscode.window.activeTextEditor;
     if (editor) {
       wsDir = path.dirname(editor.document.fileName);
-      configFile = path.join(wsDir, '.scssrc');
+      configFile = path.join(wsDir, ".scssrc");
     }
   }
 
@@ -169,16 +174,16 @@ function init() {
   }
 
   if (options.exclude) {
-    options.exclude = new RegExp(options.exclude, 'i');
+    options.exclude = new RegExp(options.exclude, "i");
   }
 
-  if(options.showButtons){
+  if (options.showButtons) {
     StatusBarUi.init();
   }
 
   prefixer = postcss().use(
     autoprefixer({
-      browsers: options.browsers
+      overrideBrowserslist: options.browsers,
     })
   );
 }
@@ -190,8 +195,8 @@ function render(style: any, file: any) {
         file,
         outputStyle: style,
         indentType: options.indentType,
-        indentWidth: options.indentWidth
-      }).css + ''
+        indentWidth: options.indentWidth,
+      }).css + ""
     ).trim();
   } catch (err) {
     std.out(err);
@@ -202,14 +207,14 @@ function render(style: any, file: any) {
 
 const compileScss = (style: any, entry: any, output: any) => {
   if (options.outdir) {
-    let tmp = output.replace(options.workspace, '.');
+    let tmp = output.replace(options.workspace, ".");
     output = path.join(options.outdir, tmp);
-  }  
+  }
 
   let css = render(style, entry);
 
   if (options.autoPrefixer) {
-    return prefixer.process(css, { from: '', to: '' }).then((result: any) => {
+    return prefixer.process(css, { from: "", to: "" }).then((result: any) => {
       return { css: result.css, output };
     });
   } else {
@@ -217,4 +222,4 @@ const compileScss = (style: any, entry: any, output: any) => {
   }
 };
 
-export function deactivate() { }
+export function deactivate() {}
