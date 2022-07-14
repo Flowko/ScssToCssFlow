@@ -1,4 +1,4 @@
-# VS Web Compiler Flow
+# Scss To Css Flow
 > 💠 Compile SCSS files easily to css and minified version.
 
 [![Version](https://vsmarketplacebadge.apphb.com/version-short/Flowko.scss-to-css-flow.svg)](https://marketplace.visualstudio.com/items?itemName=Flowko.scss-to-css-flow)
