@@ -25,14 +25,14 @@ export class StatusBarUi {
   static compileScss() {
     StatusBarUi.statusBarItem.text = `$(eye) Compile SCSS`;
     StatusBarUi.statusBarItem.color = '#27c1ad';
-    StatusBarUi.statusBarItem.command = 'vswebcompilerflow.compile';
+    StatusBarUi.statusBarItem.command = 'scss-to-css-flow.compile';
     StatusBarUi.statusBarItem.tooltip = 'live compilation of SCSS to CSS';
   }
 
   static convertCssToScss() {
     StatusBarUi.statusBarItem.text = `$(eye) CSS to SCSS`;
     StatusBarUi.statusBarItem.color = '#C127C1';
-    StatusBarUi.statusBarItem.command = 'vswebcompilerflow.css-to-scss';
+    StatusBarUi.statusBarItem.command = 'scss-to-css-flow.css-to-scss';
     StatusBarUi.statusBarItem.tooltip = 'Convert CSS to SCSS';
   }
 
