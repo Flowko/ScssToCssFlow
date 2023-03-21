@@ -2,7 +2,7 @@
   "name": "scss-to-css-compile",
   "displayName": "scss to css",
   "description": "💠 Compile SCSS files easily to css and minified version.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publisher": "oorzc",
   "author": "oorzc",
   "icon": "icon.png",
@@ -83,7 +83,13 @@
         },
         "scss-to-css-compile.browsers": {
           "type": "array",
-          "default": ["ie > 9", "iOS > 8", "Android >= 4.4", "ff > 38", "Chrome > 38"],
+          "default": [
+            "ie > 9",
+            "iOS > 8",
+            "Android >= 4.4",
+            "ff > 38",
+            "Chrome > 38"
+          ],
           "description": "Browsers to support"
         }
       }
