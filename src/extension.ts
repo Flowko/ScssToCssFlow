@@ -35,6 +35,7 @@ let options: any = {
   indentType: "space",
   indentWidth: 2,
   output: "expanded | compressed" as any,
+  outDir: "",
   exclude: "" as any,
   showButtons: true,
   browsers: [],
@@ -196,8 +197,10 @@ function init() {
 
   let file = vscode.window.activeTextEditor?.document.uri.path || "";
   if (file && [".scss", ".css"].includes(path.extname(file).toLowerCase())) {
-    StatusBarUi.init();
-    StatusBarUi.show();
+    if (options.showButtons) {
+      StatusBarUi.init();
+      StatusBarUi.show();
+    }
   } else {
     StatusBarUi.hide();
   }
