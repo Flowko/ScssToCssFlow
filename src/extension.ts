@@ -54,11 +54,11 @@ const compiler = {
 
     let filename = path.basename(origin).split(".")[0];
     let target = path.dirname(origin);
-    if (options.outdir) {
-      if (path.isAbsolute(options.outdir)) {
-        target = path.join(getRootPath(), options.outdir);
+    if (options.outDir) {
+      if (path.isAbsolute(options.outDir)) {
+        target = path.join(getRootPath(), options.outDir);
       } else {
-        target = path.join(path.dirname(origin), options.outdir);
+        target = path.join(path.dirname(origin), options.outDir);
       }
     }
 

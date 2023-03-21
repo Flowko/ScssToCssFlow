@@ -71,7 +71,7 @@
           "default": "expanded | compressed",
           "description": "Compressed: Generates only .css file\nExpanded: Generates only .min.css\nExpanded | Compressed: Generates both."
         },
-        "scss-to-css-compile.outdir": {
+        "scss-to-css-compile.outDir": {
           "type": "string",
           "default": "./dist",
           "description": "support ./dist  or ../dist or /dist"

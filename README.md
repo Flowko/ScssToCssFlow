@@ -4,7 +4,7 @@
 > Some configuration can be set, which it works better for you。
 >> - `compileOnSave`: Auto compile on Save, default `true`
 >> - `output`: Output style. default `expanded | compressed`
->> - `outdir`: Output dir. default `./dist`
+>> - `outDir`: Output dir. default `./dist`
 >> - `showButtons`: Show button in the status bar. default `true`
 >> - `autoPrefixer`: Enables AutoFixer. default `false`
 >> - `browsers`: Add a list of browsers to support. default `[]`
