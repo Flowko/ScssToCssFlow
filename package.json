@@ -2,7 +2,7 @@
   "name": "scss-to-css-compile",
   "displayName": "scss to css",
   "description": "💠 Compile SCSS files easily to css and minified version.",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "publisher": "oorzc",
   "author": "oorzc",
   "icon": "icon.png",
