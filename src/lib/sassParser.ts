@@ -32,7 +32,7 @@ const _processCssHead = (headContent: any) => {
 
 const _processCssBody = (bodyContent: any) => {
   const bodyContentArr = bodyContent.replace(/(\s*;(?![a-zA-Z\d]+)\s*)(?=([^\(]*\([^\(\)]*\))*[^\)]*$)/g, '~').split('~');
-  console.log('bodyContentArr', bodyContentArr);
+  // console.log('bodyContentArr', bodyContentArr);
   let cumulator = '';
 
   bodyContentArr.forEach((attribute: any) => {

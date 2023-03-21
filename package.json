@@ -1,11 +1,11 @@
 {
-  "name": "scss-to-css-flow",
-  "displayName": "ScssToCssFlow",
+  "name": "scss-to-css-compile",
+  "displayName": "scss to css",
   "description": "💠 Compile SCSS files easily to css and minified version.",
-  "version": "0.5.4",
-  "publisher": "flowko",
-  "author": "Flowko [@flowko]",
-  "icon": "logo.png",
+  "version": "1.0.0",
+  "publisher": "oorzc",
+  "author": "oorzc",
+  "icon": "icon.png",
   "engines": {
     "vscode": "^1.63.0"
   },
@@ -13,69 +13,75 @@
     "Formatters"
   ],
   "activationEvents": [
-    "*"
+    "onLanguage:css",
+    "onLanguage:scss"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "scss-to-css-flow.compile",
+        "command": "scss-to-css-compile.compile",
         "title": "Compile The SCSS file..."
       },
       {
-        "command": "scss-to-css-flow.css-to-scss",
+        "command": "scss-to-css-compile.css-to-scss",
         "title": "Compile The CSS file to SCSS"
       }
     ],
     "menus": {
       "editor/context": [
         {
-          "when": "!inOutput",
-          "command": "scss-to-css-flow.compile",
+          "when": "!inOutput && resourceExtname =~ /\\.scss$/",
+          "command": "scss-to-css-compile.compile",
           "title": "Compile The SCSS file..."
         },
         {
-          "when": "!inOutput",
-          "command": "scss-to-css-flow.css-to-scss",
+          "when": "!inOutput && resourceExtname =~ /\\.(css)$/",
+          "command": "scss-to-css-compile.css-to-scss",
           "title": "Compile The CSS file to SCSS"
         }
       ]
     },
     "keybindings": [
       {
-        "command": "scss-to-css-flow.compile",
+        "command": "scss-to-css-compile.compile",
         "key": "cmd+shift+c"
       },
       {
-        "command": "scss-to-css-flow.css-to-scss",
+        "command": "scss-to-css-compile.css-to-scss",
         "key": "cmd+shift+s"
       }
     ],
     "configuration": {
       "type": "object",
-      "title": "Web Compiler Flow Configuration",
+      "title": "Scss Compiler Configuration",
       "properties": {
-        "scss-to-css-flow.compileOnSave": {
+        "scss-to-css-compile.compileOnSave": {
           "type": "boolean",
           "default": true,
           "description": "Auto compile on Save"
         },
-        "scss-to-css-flow.showButtons": {
+        "scss-to-css-compile.showButtons": {
           "type": "boolean",
           "default": true,
           "description": "Show Buttons in the status bar"
         },
-        "scss-to-css-flow.output": {
+        "scss-to-css-compile.output": {
           "type": "string",
           "default": "expanded | compressed",
           "description": "Compressed: Generates only .css file\nExpanded: Generates only .min.css\nExpanded | Compressed: Generates both."
         },
-        "scss-to-css-flow.autoPrefixer": {
+        "scss-to-css-compile.outdir": {
+          "type": "string",
+          "default": "./dist",
+          "description": "support ./dist  or ../dist or /dist"
+        },
+        "scss-to-css-compile.autoPrefixer": {
           "type": "boolean",
           "default": false,
           "description": "Auto prefixer"
         },
-        "scss-to-css-flow.browsers": {
+        "scss-to-css-compile.browsers": {
           "type": "array",
           "default": ["ie > 9", "iOS > 8", "Android >= 4.4", "ff > 38", "Chrome > 38"],
           "description": "Browsers to support"
@@ -85,16 +91,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Flowko/ScssToCssFlow.git"
+    "url": "https://github.com/oorzc/ScssToCssFlow.git"
   },
   "keywords": [
     "css",
     "scss",
     "sass",
+    "sass to css",
+    "scss to css",
+    "sass2css",
+    "scss2css",
     "compile"
   ],
   "scripts": {
-    "vscode:prepublish": "npm run package",
+    "vscode:prepublish": "npm run package && git add . && git commit -m 'up' && git push",
     "compile": "webpack",
     "watch": "webpack --watch",
     "package": "webpack --mode production --devtool hidden-source-map",
@@ -102,7 +112,10 @@
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "major": "vsce publish major",
+    "minor": "vsce publish minor",
+    "patch": "vsce publish patch"
   },
   "devDependencies": {
     "@types/glob": "^7.1.4",

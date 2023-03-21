@@ -10,7 +10,23 @@ const fs = require("fs");
 const postcss = require("postcss");
 const autoprefixer = require("autoprefixer");
 const { convertCssToScss } = require("./lib/sassParser");
-const std = vscode.window.createOutputChannel("scss-to-css-flow") as any;
+
+//日志输出
+let log = vscode.window.createOutputChannel("scss-to-css-flow", { log: true });
+export function successlog(message: string) {
+  log.show();
+  log.appendLine(message);
+}
+
+export function warnlog(message: string, data: any = null) {
+  log.show();
+  data ? log.warn(message, data) : log.warn(message);
+}
+
+export function errorlog(message: string, data: any = null) {
+  log.show();
+  data ? log.error(message, data) : log.error(message);
+}
 
 let prefixer: any;
 let options: any = {
@@ -24,19 +40,35 @@ let options: any = {
   browsers: [],
 };
 
+export function getRootPath(): string {
+  return vscode.workspace.workspaceFolders?.[0].uri.fsPath || "";
+}
+
 const compiler = {
   compile(doc: any) {
     let origin = doc.fileName || "";
-    let target = origin.replace(/\.scss$/, "");
     let task = [];
-
-    if (origin === target) {
+    if (!origin || ![".scss"].includes(path.extname(origin).toLowerCase())) {
       return;
+    }
+
+    let filename = path.basename(origin).split(".")[0];
+    let target = path.dirname(origin);
+    if (options.outdir) {
+      if (path.isAbsolute(options.outdir)) {
+        target = path.join(getRootPath(), options.outdir);
+      } else {
+        target = path.join(path.dirname(origin), options.outdir);
+      }
+    }
+
+    if (!fs.existsSync(target)) {
+      //recursive 递归创建目录
+      fs.mkdirSync(target, { recursive: true });
     }
 
     task = options.output.map((style: any) => {
       let ext = ".css";
-
       switch (style) {
         case "compressed":
           ext = ".min" + ext;
@@ -44,12 +76,11 @@ const compiler = {
         default:
           ext = ext;
       }
-
-      return { style, output: target + ext };
+      return { style, output: path.join(target, filename + ext) };
     });
 
     if (task.length === 1) {
-      task[0].output = target + ".css";
+      task[0].output = path.join(target, filename + ".css");
     }
 
     task = task.map((item: any) => {
@@ -59,7 +90,13 @@ const compiler = {
     Promise.all(task)
       .then((list) => {
         list.forEach((it) => {
+          //输出文件
           iofs.echo(it.css, it.output);
+          // fs.writeFileSync(it.output, JSON.stringify(it.css, null, '\t'), 'utf8')
+          //刷新目录
+          vscode.commands.executeCommand(
+            "workbench.files.action.refreshFilesExplorer"
+          );
         });
       })
       .catch((err) => {
@@ -80,6 +117,10 @@ const compiler = {
     const processedContents = convertCssToScss(initialContents);
 
     fs.writeFileSync(filename, processedContents);
+    //刷新目录
+    vscode.commands.executeCommand(
+      "workbench.files.action.refreshFilesExplorer"
+    );
   },
   filter(doc: any) {
     if (!options.compileOnSave) {
@@ -97,32 +138,31 @@ const compiler = {
         return;
       }
     }
-
     this.compile(doc);
   },
 };
 
 export function activate(context: vscode.ExtensionContext) {
   init();
+  vscode.window.onDidChangeActiveTextEditor(init);
   vscode.workspace.onDidChangeConfiguration(init);
 
   vscode.workspace.onDidSaveTextDocument((doc) => {
-    std.clear();
+    log.clear();
     compiler.filter(doc);
   });
 
   let compileCmd = vscode.commands.registerCommand(
-    "scss-to-css-flow.compile",
+    "scss-to-css-compile.compile",
     (_) => {
       let editor = vscode.window.activeTextEditor;
-
       if (editor) {
         compiler.compile(editor.document);
       }
     }
   );
   let cssToScssCmd = vscode.commands.registerCommand(
-    "scss-to-css-flow.css-to-scss",
+    "scss-to-css-compile.css-to-scss",
     (_) => {
       let editor = vscode.window.activeTextEditor;
 
@@ -136,11 +176,9 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 function init() {
-  let conf = vscode.workspace.getConfiguration("scss-to-css-flow") as any;
+  let conf = vscode.workspace.getConfiguration("scss-to-css-compile") as any;
   let folders = vscode.workspace.workspaceFolders;
   let wsDir = "";
-  let configFile = "";
-
   Object.assign(options, conf);
   conf = null;
 
@@ -150,35 +188,18 @@ function init() {
     wsDir = folders[0].uri.path;
   }
 
-  if (wsDir) {
-    configFile = path.join(wsDir, ".scssrc");
-  } else {
-    let editor = vscode.window.activeTextEditor;
-    if (editor) {
-      wsDir = path.dirname(editor.document.fileName);
-      configFile = path.join(wsDir, ".scssrc");
-    }
-  }
-
   options.workspace = wsDir;
-
-  if (iofs.exists(configFile)) {
-    let tmp = JSON.parse(iofs.cat(configFile).toString());
-
-    Object.assign(options, tmp);
-    tmp = null;
-
-    if (options.outdir) {
-      options.outdir = path.join(options.workspace, options.outdir);
-    }
-  }
 
   if (options.exclude) {
     options.exclude = new RegExp(options.exclude, "i");
   }
 
-  if (options.showButtons) {
+  let file = vscode.window.activeTextEditor?.document.uri.path || "";
+  if (file && [".scss", ".css"].includes(path.extname(file).toLowerCase())) {
     StatusBarUi.init();
+    StatusBarUi.show();
+  } else {
+    StatusBarUi.hide();
   }
 
   prefixer = postcss().use(
@@ -199,20 +220,12 @@ function render(style: any, file: any) {
       }).css + ""
     ).trim();
   } catch (err) {
-    std.out(err);
-    std.show(true);
-    // console.error(err)
+    errorlog("编译错误", err);
   }
 }
 
 const compileScss = (style: any, entry: any, output: any) => {
-  if (options.outdir) {
-    let tmp = output.replace(options.workspace, ".");
-    output = path.join(options.outdir, tmp);
-  }
-
   let css = render(style, entry);
-
   if (options.autoPrefixer) {
     return prefixer.process(css, { from: "", to: "" }).then((result: any) => {
       return { css: result.css, output };
