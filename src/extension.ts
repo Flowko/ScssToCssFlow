@@ -12,7 +12,7 @@ const autoprefixer = require("autoprefixer");
 const { convertCssToScss } = require("./lib/sassParser");
 
 //日志输出
-let log = vscode.window.createOutputChannel("scss-to-css-flow", { log: true });
+let log = vscode.window.createOutputChannel("scss-to-css", { log: true });
 export function successlog(message: string) {
   log.show();
   log.appendLine(message);
@@ -63,10 +63,10 @@ const compiler = {
       }
     }
 
-    if (!fs.existsSync(target)) {
-      //recursive 递归创建目录
-      fs.mkdirSync(target, { recursive: true });
-    }
+    // if (!fs.existsSync(target)) {
+    //   //recursive 递归创建目录
+    //   fs.mkdirSync(target, { recursive: true });
+    // }
 
     task = options.output.map((style: any) => {
       let ext = ".css";

@@ -1,4 +1,4 @@
-# Scss To Css Flow
+# Scss To Css
 > 💠 Compile SCSS files easily to css and minified version.
 ## Configuration
 > Some configuration can be set, which it works better for you。
