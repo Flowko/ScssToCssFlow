@@ -1,4 +1,6 @@
 # Scss To Css
+[中文文档](./READM_ZH.md)
+
 > 💠 Compile SCSS files easily to css and minified version.
 ## Configuration
 > Some configuration can be set, which it works better for you。
