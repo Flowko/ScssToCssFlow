@@ -16,4 +16,7 @@
 2. Generate SCSS file from CSS, simply search for `Css to Scss` in the commands and execute it.
 
 ## Installation
+
+[Download](https://marketplace.visualstudio.com/items?itemName=oorzc.scss-to-css-compile)
+
 > Search `scss-to-css-complie` and install it from the marketplace.

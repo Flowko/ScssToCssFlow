@@ -20,4 +20,7 @@
 2. 从CSS生成SCSS文件，只需在命令中搜索“CSS to SCSS”并执行即可。也可以点击css文件下方按钮。
 
 ## 安装
->搜索“scss to css compile”并从市场上安装它。
+
+1. [下载地址](https://marketplace.visualstudio.com/items?itemName=oorzc.scss-to-css-compile)
+
+2. 搜索“scss to css compile”并从市场上安装它。
