@@ -1,0 +1,11 @@
+ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+ul li {
+  color: #ffffff;
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+}
