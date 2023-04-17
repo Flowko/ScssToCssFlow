@@ -2,12 +2,12 @@
   "name": "scss-to-css-flow",
   "displayName": "ScssToCssFlow",
   "description": "💠 Compile SCSS files easily to css and minified version.",
-  "version": "0.5.4",
+  "version": "0.6.0",
   "publisher": "flowko",
   "author": "Flowko [@flowko]",
   "icon": "logo.png",
   "engines": {
-    "vscode": "^1.63.0"
+    "vscode": "^1.77.0"
   },
   "categories": [
     "Formatters"
@@ -68,7 +68,7 @@
         "scss-to-css-flow.output": {
           "type": "string",
           "default": "expanded | compressed",
-          "description": "Compressed: Generates only .css file\nExpanded: Generates only .min.css\nExpanded | Compressed: Generates both."
+          "description": "Compressed: Generates only .min.css file\nExpanded: Generates only .css\nExpanded | Compressed: Generates both."
         },
         "scss-to-css-flow.autoPrefixer": {
           "type": "boolean",
@@ -77,7 +77,13 @@
         },
         "scss-to-css-flow.browsers": {
           "type": "array",
-          "default": ["ie > 9", "iOS > 8", "Android >= 4.4", "ff > 38", "Chrome > 38"],
+          "default": [
+            "ie > 9",
+            "iOS > 8",
+            "Android >= 4.4",
+            "ff > 38",
+            "Chrome > 38"
+          ],
           "description": "Browsers to support"
         }
       }
@@ -105,27 +111,27 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/glob": "^7.1.4",
-    "@types/mocha": "^9.0.0",
-    "@types/node": "14.x",
-    "@types/vscode": "^1.63.0",
-    "@typescript-eslint/eslint-plugin": "^5.1.0",
-    "@typescript-eslint/parser": "^5.1.0",
-    "@vscode/test-electron": "^1.6.2",
-    "autoprefixer": "^10.4.7",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "18.15.11",
+    "@types/vscode": "^1.77.0",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "@vscode/test-electron": "^2.3.0",
+    "autoprefixer": "^10.4.14",
     "color-namer": "^1.4.0",
-    "eslint": "^8.1.0",
-    "glob": "^7.1.7",
-    "iofs": "^1.5.2",
+    "eslint": "^8.38.0",
+    "glob": "^10.1.0",
+    "iofs": "^1.5.3",
     "lodash": "^4.17.21",
-    "mocha": "^9.1.3",
+    "mocha": "^10.2.0",
     "perfectionist": "^2.4.0",
-    "postcss": "^8.4.14",
-    "sass": "^1.45.0",
-    "ts-loader": "^9.2.5",
-    "typescript": "^4.4.4",
-    "webpack": "^5.52.1",
-    "webpack-cli": "^4.8.0"
+    "postcss": "^8.4.22",
+    "sass": "^1.62.0",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.0.4",
+    "webpack": "^5.79.0",
+    "webpack-cli": "^5.0.1"
   },
   "dependencies": {}
 }

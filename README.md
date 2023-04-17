@@ -1,10 +1,6 @@
 # Scss To Css Flow
 > 💠 Compile SCSS files easily to css and minified version.
 
-[![Version](https://vsmarketplacebadge.apphb.com/version-short/Flowko.scss-to-css-flow.svg)](https://marketplace.visualstudio.com/items?itemName=Flowko.scss-to-css-flow)
-[![Rating](https://vsmarketplacebadge.apphb.com/rating-short/Flowko.scss-to-css-flow.svg)](https://marketplace.visualstudio.com/items?itemName=Flowko.scss-to-css-flow)
-[![Installs](https://vsmarketplacebadge.apphb.com/installs/Flowko.scss-to-css-flow.svg)](https://marketplace.visualstudio.com/items?itemName=Flowko.scss-to-css-flow)
-
 ## Configuration
 > Some configuration can be set, which it works better for you。
 >> - `compileOnSave`: Auto compile on Save, default `true`

@@ -35,7 +35,7 @@ const compiler = {
     }
 
     task = options.output.map((style: any) => {
-      let ext = ".css";
+      var ext = ".css";
 
       switch (style) {
         case "compressed":
@@ -47,10 +47,6 @@ const compiler = {
 
       return { style, output: target + ext };
     });
-
-    if (task.length === 1) {
-      task[0].output = target + ".css";
-    }
 
     task = task.map((item: any) => {
       return compileScss(item.style, origin, item.output);
