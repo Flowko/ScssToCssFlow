@@ -19,4 +19,4 @@
 
 [Download](https://marketplace.visualstudio.com/items?itemName=oorzc.scss-to-css-compile)
 
-> Search `scss-to-css-complie` and install it from the marketplace.
+> Search `Easy Scss` and install it from the marketplace.
